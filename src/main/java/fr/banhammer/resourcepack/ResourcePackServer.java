@@ -32,10 +32,13 @@ public class ResourcePackServer {
                 MessageDigest digest = MessageDigest.getInstance("SHA-1");
                 sha1HashBytes = digest.digest(data);
                 sha1HashHex = HexFormat.of().formatHex(sha1HashBytes);
-                plugin.getLogger().info("Calculated ResourcePack SHA-1: " + sha1HashHex);
+                plugin.getLogger().info("[ResourcePack DEBUG] Pack Size: " + data.length + " bytes | SHA-1: " + sha1HashHex);
+            } else {
+                plugin.getLogger().severe("[ResourcePack DEBUG ERROR] BanHammer_ResourcePack.zip IS NULL in plugin resources!");
             }
         } catch (Exception e) {
-            plugin.getLogger().warning("Could not calculate Resource Pack SHA-1: " + e.getMessage());
+            plugin.getLogger().severe("[ResourcePack DEBUG ERROR] Failed to calculate SHA-1: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -45,28 +48,36 @@ public class ResourcePackServer {
             server.createContext("/resourcepack.zip", new HttpHandler() {
                 @Override
                 public void handle(HttpExchange exchange) {
+                    String clientAddress = exchange.getRemoteAddress().toString();
+                    plugin.getLogger().info("[ResourcePack DEBUG] Incoming HTTP Request from " + clientAddress + " for URI: " + exchange.getRequestURI());
+
                     try (InputStream is = plugin.getResource("BanHammer_ResourcePack.zip")) {
                         if (is == null) {
+                            plugin.getLogger().severe("[ResourcePack DEBUG ERROR] Cannot serve /resourcepack.zip - File not found in JAR!");
                             exchange.sendResponseHeaders(404, 0);
                             exchange.close();
                             return;
                         }
                         byte[] bytes = is.readAllBytes();
                         exchange.getResponseHeaders().set("Content-Type", "application/zip");
+                        exchange.getResponseHeaders().set("Accept-Ranges", "bytes");
                         exchange.sendResponseHeaders(200, bytes.length);
                         OutputStream os = exchange.getResponseBody();
                         os.write(bytes);
                         os.close();
+                        plugin.getLogger().info("[ResourcePack DEBUG SUCCESS] Served " + bytes.length + " bytes to " + clientAddress);
                     } catch (Exception e) {
-                        plugin.getLogger().warning("Error serving resource pack: " + e.getMessage());
+                        plugin.getLogger().severe("[ResourcePack DEBUG ERROR] Failed serving pack to " + clientAddress + ": " + e.getMessage());
+                        e.printStackTrace();
                     }
                 }
             });
             server.setExecutor(null);
             server.start();
-            plugin.getLogger().info("Integrated Resource Pack HTTP Server started on port " + port);
+            plugin.getLogger().info("[ResourcePack DEBUG] Integrated HTTP Server successfully listening on port " + port);
         } catch (Exception e) {
-            plugin.getLogger().warning("Could not start integrated Resource Pack server on port " + port + ": " + e.getMessage());
+            plugin.getLogger().severe("[ResourcePack DEBUG ERROR] Could not start HTTP server on port " + port + ": " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

@@ -32,10 +32,10 @@ public final class BanHammerPlugin extends JavaPlugin {
             int port = getConfig().getInt("resource-pack.port", 8085);
             this.resourcePackServer = new ResourcePackServer(this, port);
             this.resourcePackServer.start();
-            getServer().getPluginManager().registerEvents(new ResourcePackListener(this, port), this);
+            getServer().getPluginManager().registerEvents(new ResourcePackListener(this, resourcePackServer, port), this);
         }
 
-        getLogger().info("BanHammer Plugin v1.1.0 enabled with Integrated ResourcePack!");
+        getLogger().info("BanHammer Plugin v1.1.1 enabled with SHA-1 ResourcePack!");
     }
 
     @Override
@@ -52,5 +52,9 @@ public final class BanHammerPlugin extends JavaPlugin {
 
     public ItemManager getItemManager() {
         return itemManager;
+    }
+
+    public ResourcePackServer getResourcePackServer() {
+        return resourcePackServer;
     }
 }

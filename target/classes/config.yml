@@ -10,6 +10,8 @@ resource-pack:
   enabled: true
   auto-send-on-join: true
   port: 8085
+  # Leave empty to use http://127.0.0.1:8085/resourcepack.zip automatically
+  url: ""
 
 # Hit Effects Settings
 effects:

@@ -13,17 +13,11 @@ public class ResourcePackListener implements Listener {
     private final BanHammerPlugin plugin;
     private final ResourcePackServer packServer;
     private final int port;
-    private String resolvedPublicIp;
 
     public ResourcePackListener(BanHammerPlugin plugin, ResourcePackServer packServer, int port) {
         this.plugin = plugin;
         this.packServer = packServer;
         this.port = port;
-
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            this.resolvedPublicIp = PublicIpFetcher.fetchPublicIp();
-            plugin.getLogger().info("[ResourcePack DEBUG] Resolved Server Public IP: " + resolvedPublicIp);
-        });
     }
 
     @EventHandler
@@ -33,15 +27,9 @@ public class ResourcePackListener implements Listener {
         Player player = event.getPlayer();
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             try {
-                String configUrl = plugin.getConfig().getString("resource-pack.url", "");
-                String packUrl;
-                if (configUrl != null && !configUrl.trim().isEmpty()) {
-                    packUrl = configUrl.trim();
-                } else {
-                    String ip = (resolvedPublicIp != null && !resolvedPublicIp.isEmpty() && !resolvedPublicIp.equals("0.0.0.0")) 
-                            ? resolvedPublicIp 
-                            : "127.0.0.1";
-                    packUrl = "http://" + ip + ":" + port + "/resourcepack.zip";
+                String packUrl = plugin.getConfig().getString("resource-pack.url", "").trim();
+                if (packUrl.isEmpty()) {
+                    packUrl = "http://127.0.0.1:" + port + "/resourcepack.zip";
                 }
 
                 byte[] hash = packServer != null ? packServer.getSha1HashBytes() : null;

@@ -5,13 +5,13 @@
 # Custom Model Data for Resource Pack texture (mace_banhammertexture.png)
 custom-model-data: 1001
 
-# Automatic Integrated Resource Pack Server Settings
+# Automatic Resource Pack Settings
 resource-pack:
   enabled: true
   auto-send-on-join: true
-  port: 8085
-  # Leave empty to use http://127.0.0.1:8085/resourcepack.zip automatically
-  url: ""
+  port: 8765
+  # Direct HTTPS Download Link (100% working on any VPS without port forwarding)
+  url: "https://raw.githubusercontent.com/tynitv/BanHammer/main/BanHammer_ResourcePack.zip"
 
 # Hit Effects Settings
 effects:

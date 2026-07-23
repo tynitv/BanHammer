@@ -20,10 +20,9 @@ public class ResourcePackListener implements Listener {
         this.packServer = packServer;
         this.port = port;
 
-        // Resolve Public IP asynchronously on startup
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             this.resolvedPublicIp = PublicIpFetcher.fetchPublicIp();
-            plugin.getLogger().info("[ResourcePack DEBUG] Resolved Server Public IP for Resource Pack: " + resolvedPublicIp);
+            plugin.getLogger().info("[ResourcePack DEBUG] Resolved Server Public IP: " + resolvedPublicIp);
         });
     }
 
@@ -39,8 +38,9 @@ public class ResourcePackListener implements Listener {
                 if (configUrl != null && !configUrl.trim().isEmpty()) {
                     packUrl = configUrl.trim();
                 } else {
-                    String ip = (resolvedPublicIp != null && !resolvedPublicIp.isEmpty()) ? resolvedPublicIp : "127.0.0.1";
-                    if (!Bukkit.getIp().isEmpty()) ip = Bukkit.getIp();
+                    String ip = (resolvedPublicIp != null && !resolvedPublicIp.isEmpty() && !resolvedPublicIp.equals("0.0.0.0")) 
+                            ? resolvedPublicIp 
+                            : "127.0.0.1";
                     packUrl = "http://" + ip + ":" + port + "/resourcepack.zip";
                 }
 

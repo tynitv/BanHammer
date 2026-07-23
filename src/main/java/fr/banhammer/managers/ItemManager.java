@@ -2,6 +2,7 @@ package fr.banhammer.managers;
 
 import fr.banhammer.BanHammerPlugin;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -17,6 +18,7 @@ public class ItemManager {
 
     private final BanHammerPlugin plugin;
     private final NamespacedKey banKey;
+    private final MiniMessage mm = MiniMessage.miniMessage();
 
     public ItemManager(BanHammerPlugin plugin) {
         this.plugin = plugin;
@@ -28,22 +30,20 @@ public class ItemManager {
         ItemMeta meta = hammer.getItemMeta();
 
         if (meta != null) {
-            meta.displayName(Component.text("§c§lBAN HAMMER"));
+            meta.displayName(mm.deserialize("<gradient:#FF0033:#FFD700><bold>BAN HAMMER</bold></gradient>"));
 
             List<Component> lore = new ArrayList<>();
-            lore.add(Component.text("§7Un seul coup suffit..."));
-            lore.add(Component.text(""));
-            lore.add(Component.text("§4Bannissement immédiat"));
+            lore.add(mm.deserialize("<gray>Un seul coup suffit...</gray>"));
+            lore.add(Component.empty());
+            lore.add(mm.deserialize("<dark_red><bold>Bannissement immédiat</bold></dark_red>"));
             meta.lore(lore);
 
-            // Glint effect
+            meta.setCustomModelData(plugin.getConfig().getInt("custom-model-data", 1001));
             meta.addEnchant(Enchantment.UNBREAKING, 1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES); // Hide attack damage etc for cleaner look
-
+            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
             meta.setUnbreakable(true);
 
-            // Custom Tag
             meta.getPersistentDataContainer().set(banKey, PersistentDataType.BYTE, (byte) 1);
 
             hammer.setItemMeta(meta);

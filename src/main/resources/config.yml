@@ -1,17 +1,29 @@
-# BanHammer Configuration
+# ========================================================
+#              BanHammer Configuration File
+# ========================================================
 
-# Message sent to the banned player
-ban-message: "§cVous avez été frappé par le Ban Hammer."
+# Custom Model Data for Resource Pack texture (mace_banhammertexture.png)
+custom-model-data: 1001
 
-# Broadcast message when a player is banned
-# Use <player> for the victim's name
-broadcast-message: "§4<player> a été annihilé par le Ban Hammer !"
+# Hit Effects Settings
+effects:
+  lightning: true
+  explosion: true
+  sound: true
+  particles: true
+  
+  # Potion Effects applied to victim on hit
+  potion-effects:
+    BLINDNESS:
+      duration-seconds: 5
+      amplifier: 1
+    SLOWNESS:
+      duration-seconds: 10
+      amplifier: 2
 
-# Enable lightning effect on ban
-lightning-effect: true
-
-# Enable explosion effect on ban (visual only)
-explosion-effect: true
-
-# Enable sound effect on ban
-sound-effect: true
+# Messages Configuration
+messages:
+  prefix: "<gradient:#FF0033:#FFD700><bold>BanHammer</bold></gradient> <gray>»</gray> "
+  broadcast: "<prefix><red><player></red> <gray>a été frappé et ban par le BanHammer !</gray>"
+  ban-reason: "<red>Vous avez été ban par le BanHammer.</red>"
+  no-permission: "<prefix><red>Vous n'avez pas la permission d'utiliser cet objet légendaire.</red>"

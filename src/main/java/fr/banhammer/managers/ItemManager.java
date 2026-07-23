@@ -3,6 +3,7 @@ package fr.banhammer.managers;
 import fr.banhammer.BanHammerPlugin;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -60,6 +61,23 @@ public class ItemManager {
         if (meta == null) {
             return false;
         }
-        return meta.getPersistentDataContainer().has(banKey, PersistentDataType.BYTE);
+
+        // 1. Check PersistentDataContainer
+        if (meta.getPersistentDataContainer().has(banKey, PersistentDataType.BYTE)) {
+            return true;
+        }
+
+        // 2. Check CustomModelData fallback
+        if (meta.hasCustomModelData() && meta.getCustomModelData() == plugin.getConfig().getInt("custom-model-data", 1001)) {
+            return true;
+        }
+
+        // 3. Check DisplayName fallback
+        if (meta.hasDisplayName()) {
+            String plainName = PlainTextComponentSerializer.plainText().serialize(meta.displayName());
+            return plainName.toUpperCase().contains("BAN HAMMER");
+        }
+
+        return false;
     }
 }

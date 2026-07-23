@@ -27,9 +27,12 @@ public class ResourcePackListener implements Listener {
         Player player = event.getPlayer();
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             try {
-                String packUrl = plugin.getConfig().getString("resource-pack.url", "").trim();
-                if (packUrl.isEmpty()) {
-                    packUrl = "http://127.0.0.1:" + port + "/resourcepack.zip";
+                String configUrl = plugin.getConfig().getString("resource-pack.url", "");
+                String packUrl;
+                if (configUrl != null && !configUrl.trim().isEmpty() && !configUrl.contains("127.0.0.1") && !configUrl.contains("0.0.0.0")) {
+                    packUrl = configUrl.trim();
+                } else {
+                    packUrl = "https://raw.githubusercontent.com/tynitv/BanHammer/main/BanHammer_ResourcePack.zip";
                 }
 
                 byte[] hash = packServer != null ? packServer.getSha1HashBytes() : null;

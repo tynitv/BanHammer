@@ -1,4 +1,7 @@
+fr\banhammer\resourcepack\ResourcePackServer.class
 fr\banhammer\managers\ItemManager.class
+fr\banhammer\resourcepack\ResourcePackServer$1.class
 fr\banhammer\BanHammerPlugin.class
 fr\banhammer\listeners\BanHammerListener.class
+fr\banhammer\resourcepack\ResourcePackListener.class
 fr\banhammer\commands\BanHammerCommand.class

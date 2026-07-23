@@ -5,6 +5,12 @@
 # Custom Model Data for Resource Pack texture (mace_banhammertexture.png)
 custom-model-data: 1001
 
+# Automatic Integrated Resource Pack Server Settings
+resource-pack:
+  enabled: true
+  auto-send-on-join: true
+  port: 8085
+
 # Hit Effects Settings
 effects:
   lightning: true

@@ -1,0 +1,17 @@
+# BanHammer Configuration
+
+# Message sent to the banned player
+ban-message: "§cVous avez été frappé par le Ban Hammer."
+
+# Broadcast message when a player is banned
+# Use <player> for the victim's name
+broadcast-message: "§4<player> a été annihilé par le Ban Hammer !"
+
+# Enable lightning effect on ban
+lightning-effect: true
+
+# Enable explosion effect on ban (visual only)
+explosion-effect: true
+
+# Enable sound effect on ban
+sound-effect: true

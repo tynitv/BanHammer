@@ -1,0 +1,4 @@
+fr\banhammer\BanHammerPlugin.class
+fr\banhammer\listeners\BanHammerListener.class
+fr\banhammer\managers\ItemManager.class
+fr\banhammer\commands\BanHammerCommand.class

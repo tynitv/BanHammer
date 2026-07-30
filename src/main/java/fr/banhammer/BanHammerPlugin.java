@@ -58,6 +58,19 @@ public final class BanHammerPlugin extends JavaPlugin {
         }
     }
 
+    public String getMessage(String key) {
+        String lang = getConfig().getString("language", "EN").toUpperCase();
+        String prefix = getConfig().getString("messages.prefix", "");
+        String msg = getConfig().getString("messages." + lang + "." + key);
+        if (msg == null) {
+            msg = getConfig().getString("messages.EN." + key);
+        }
+        if (msg == null) {
+            msg = getConfig().getString("messages." + key, "");
+        }
+        return msg.replace("<prefix>", prefix);
+    }
+
     public static BanHammerPlugin getInstance() {
         return instance;
     }

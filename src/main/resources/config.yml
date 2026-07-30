@@ -2,6 +2,9 @@
 #              BanHammer Configuration File
 # ========================================================
 
+# Language setting: EN (English) or FR (French)
+language: "EN"
+
 # Custom Model Data for Resource Pack texture (mace_banhammertexture.png)
 custom-model-data: 1001
 
@@ -16,13 +19,23 @@ shockwave:
   radius: 6.0
   knockback-force: 1.8
 
+# Custom Enchantments applied to the BanHammer
+enchantments:
+  hide-enchants: false
+  glow: true
+  list:
+    UNBREAKING: 3
+    DENSITY: 5
+    WIND_BURST: 3
+    BREACH: 4
+
 # Automatic Resource Pack Settings
 resource-pack:
   enabled: true
   auto-send-on-join: true
   port: 8765
-  # Direct HTTPS Download Link (100% working on any VPS without port forwarding)
-  url: "https://raw.githubusercontent.com/tynitv/BanHammer/main/BanHammer_ResourcePack.zip"
+  # Direct HTTP Server Link (served live on port 8765 for instant local delivery)
+  url: "http://127.0.0.1:8765/resourcepack.zip"
 
 # Hit Effects Settings
 effects:
@@ -43,9 +56,41 @@ effects:
 # Messages Configuration (MiniMessage Format)
 messages:
   prefix: "<gradient:#FF0033:#FFD700><bold>BanHammer</bold></gradient> <gray>»</gray> "
-  broadcast: "<prefix><red><player></red> <gray>a été frappé et ban par le BanHammer !</gray>"
-  ban-reason: "<red>Vous avez été ban par le BanHammer.</red>"
-  no-permission: "<prefix><red>Vous n'avez pas la permission d'utiliser cet objet légendaire.</red>"
-  reloaded: "<prefix><green>Configuration et Resource Pack réinitialisés avec succès !</green>"
-  pack-sent: "<prefix><green>Le Resource Pack du BanHammer vous a été envoyé.</green>"
-  cooldown: "<prefix><red>L'onde de choc est en rechargement (<seconds>s restantes).</red>"
+  
+  EN:
+    item-name: "<gradient:#FF0033:#FFD700><bold>BAN HAMMER</bold></gradient>"
+    item-lore:
+      - "<gray>A single strike is enough...</gray>"
+      - ""
+      - "<dark_red><bold>Instant Ban</bold></dark_red>"
+    broadcast: "<prefix><red><player></red> <gray>was struck and banned by the BanHammer!</gray>"
+    ban-reason: "<red>You have been banned by the BanHammer.</red>"
+    no-permission: "<prefix><red>You do not have permission to use this legendary weapon.</red>"
+    reloaded: "<prefix><green>Configuration & Resource Pack successfully reloaded!</green>"
+    pack-sent: "<prefix><green>The BanHammer Resource Pack has been sent to you.</green>"
+    cooldown: "<prefix><red>The Shockwave ability is on cooldown (<seconds>s remaining).</red>"
+    usage: "<prefix><gray>Usage: </gray><yellow>/banhammer <give|reload|pack|enchant> [player|enchant] [level]</yellow>"
+    given: "<prefix><green>Ban Hammer given to <player>.</green>"
+    player-not-found: "<prefix><red>Player not found.</red>"
+    enchanted: "<prefix><green>Enchantment <enchant> level <level> applied to your BanHammer!</green>"
+    must-hold-banhammer: "<prefix><red>You must be holding the BanHammer in your main hand!</red>"
+    invalid-enchantment: "<prefix><red>Invalid enchantment name.</red>"
+
+  FR:
+    item-name: "<gradient:#FF0033:#FFD700><bold>BAN HAMMER</bold></gradient>"
+    item-lore:
+      - "<gray>Un seul coup suffit...</gray>"
+      - ""
+      - "<dark_red><bold>Bannissement immédiat</bold></dark_red>"
+    broadcast: "<prefix><red><player></red> <gray>a été frappé et ban par le BanHammer !</gray>"
+    ban-reason: "<red>Vous avez été ban par le BanHammer.</red>"
+    no-permission: "<prefix><red>Vous n'avez pas la permission d'utiliser cet objet légendaire.</red>"
+    reloaded: "<prefix><green>Configuration et Resource Pack réinitialisés avec succès !</green>"
+    pack-sent: "<prefix><green>Le Resource Pack du BanHammer vous a été envoyé.</green>"
+    cooldown: "<prefix><red>L'onde de choc est en rechargement (<seconds>s restantes).</red>"
+    usage: "<prefix><gray>Utilisation : </gray><yellow>/banhammer <give|reload|pack|enchant> [joueur|enchantement] [niveau]</yellow>"
+    given: "<prefix><green>Ban Hammer donné à <player>.</green>"
+    player-not-found: "<prefix><red>Joueur introuvable.</red>"
+    enchanted: "<prefix><green>Enchantement <enchant> niveau <level> appliqué sur votre BanHammer !</green>"
+    must-hold-banhammer: "<prefix><red>Vous devez tenir le BanHammer dans votre main principale !</red>"
+    invalid-enchantment: "<prefix><red>Nom d'enchantement invalide.</red>"

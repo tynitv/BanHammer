@@ -6,6 +6,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -31,17 +32,51 @@ public class ItemManager {
         ItemMeta meta = hammer.getItemMeta();
 
         if (meta != null) {
-            meta.displayName(mm.deserialize("<gradient:#FF0033:#FFD700><bold>BAN HAMMER</bold></gradient>"));
+            String nameMsg = plugin.getMessage("item-name");
+            if (nameMsg.isEmpty()) {
+                nameMsg = "<gradient:#FF0033:#FFD700><bold>BAN HAMMER</bold></gradient>";
+            }
+            meta.displayName(mm.deserialize(nameMsg));
+
+            String lang = plugin.getConfig().getString("language", "EN").toUpperCase();
+            List<String> rawLore = plugin.getConfig().getStringList("messages." + lang + ".item-lore");
+            if (rawLore.isEmpty()) {
+                rawLore = plugin.getConfig().getStringList("messages.EN.item-lore");
+            }
 
             List<Component> lore = new ArrayList<>();
-            lore.add(mm.deserialize("<gray>Un seul coup suffit...</gray>"));
-            lore.add(Component.empty());
-            lore.add(mm.deserialize("<dark_red><bold>Bannissement immédiat</bold></dark_red>"));
+            if (!rawLore.isEmpty()) {
+                for (String line : rawLore) {
+                    lore.add(mm.deserialize(line));
+                }
+            } else {
+                lore.add(mm.deserialize("<gray>A single strike is enough...</gray>"));
+                lore.add(Component.empty());
+                lore.add(mm.deserialize("<dark_red><bold>Instant Ban</bold></dark_red>"));
+            }
             meta.lore(lore);
 
             meta.setCustomModelData(plugin.getConfig().getInt("custom-model-data", 1001));
-            meta.addEnchant(Enchantment.UNBREAKING, 1, true);
-            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+
+            // Apply Configured Enchantments
+            ConfigurationSection enchSec = plugin.getConfig().getConfigurationSection("enchantments.list");
+            boolean hideEnchants = plugin.getConfig().getBoolean("enchantments.hide-enchants", false);
+
+            if (enchSec != null) {
+                for (String key : enchSec.getKeys(false)) {
+                    Enchantment ench = parseEnchantment(key);
+                    if (ench != null) {
+                        int level = enchSec.getInt(key, 1);
+                        meta.addEnchant(ench, level, true);
+                    }
+                }
+            } else {
+                meta.addEnchant(Enchantment.UNBREAKING, 3, true);
+            }
+
+            if (hideEnchants) {
+                meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            }
             meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
             meta.setUnbreakable(true);
 
@@ -51,6 +86,20 @@ public class ItemManager {
         }
 
         return hammer;
+    }
+
+    public Enchantment parseEnchantment(String name) {
+        if (name == null || name.trim().isEmpty()) return null;
+        String cleanName = name.toLowerCase().trim();
+        if (!cleanName.contains(":")) {
+            cleanName = "minecraft:" + cleanName;
+        }
+        NamespacedKey key = NamespacedKey.fromString(cleanName);
+        if (key != null) {
+            Enchantment ench = Enchantment.getByKey(key);
+            if (ench != null) return ench;
+        }
+        return Enchantment.getByName(name.toUpperCase());
     }
 
     public boolean isBanHammer(ItemStack item) {

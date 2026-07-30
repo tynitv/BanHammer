@@ -46,10 +46,8 @@ public class BanHammerListener implements Listener {
             return;
         }
 
-        String prefix = plugin.getConfig().getString("messages.prefix", "");
-
         if (!damager.hasPermission("banhammer.use")) {
-            damager.sendMessage(mm.deserialize(plugin.getConfig().getString("messages.no-permission", "").replace("<prefix>", prefix)));
+            damager.sendMessage(mm.deserialize(plugin.getMessage("no-permission")));
             event.setCancelled(true);
             return;
         }
@@ -89,14 +87,12 @@ public class BanHammerListener implements Listener {
         }
 
         // Broadcast Message
-        String broadcastMsg = plugin.getConfig().getString("messages.broadcast", "")
-                .replace("<prefix>", prefix)
-                .replace("<player>", victim.getName());
+        String broadcastMsg = plugin.getMessage("broadcast").replace("<player>", victim.getName());
         Bukkit.broadcast(mm.deserialize(broadcastMsg));
 
         // Sanction Action Mode (BAN, TEMP_BAN, KICK, MUTE, LIGHTNING_ONLY)
         String actionMode = plugin.getConfig().getString("action-mode", "BAN").toUpperCase();
-        String banReason = plugin.getConfig().getString("messages.ban-reason", "Vous avez été ban par le BanHammer.");
+        String banReason = plugin.getMessage("ban-reason");
 
         switch (actionMode) {
             case "TEMP_BAN":
@@ -135,9 +131,8 @@ public class BanHammerListener implements Listener {
             return;
         }
 
-        String prefix = plugin.getConfig().getString("messages.prefix", "");
         if (!player.hasPermission("banhammer.use")) {
-            player.sendMessage(mm.deserialize(plugin.getConfig().getString("messages.no-permission", "").replace("<prefix>", prefix)));
+            player.sendMessage(mm.deserialize(plugin.getMessage("no-permission")));
             return;
         }
 
@@ -148,9 +143,7 @@ public class BanHammerListener implements Listener {
 
         if (now - lastUse < cooldownSeconds * 1000L) {
             long remaining = ((lastUse + cooldownSeconds * 1000L) - now) / 1000L + 1;
-            String msg = plugin.getConfig().getString("messages.cooldown", "<prefix><red>Veuillez attendre <seconds>s.</red>")
-                    .replace("<prefix>", prefix)
-                    .replace("<seconds>", String.valueOf(remaining));
+            String msg = plugin.getMessage("cooldown").replace("<seconds>", String.valueOf(remaining));
             player.sendMessage(mm.deserialize(msg));
             return;
         }

@@ -1,11 +1,10 @@
 # BanHammer (Ban Hammer & Mace Ban Engine) v1.2.0
 
-![Paper](https://img.shields.io/badge/Loader-Paper-blue?logo=papermc&logoColor=white)
-![Spigot](https://img.shields.io/badge/Loader-Spigot-orange?logo=spigotmc&logoColor=white)
-![Minecraft](https://img.shields.io/badge/Minecraft-1.21.x-brightgreen?logo=minecraft&logoColor=white)
-![Modrinth](https://img.shields.io/badge/Modrinth-BanHammer-00AF5C?logo=modrinth&logoColor=white)
-![Discord](https://img.shields.io/badge/Discord-Join%20Us-5865F2?logo=discord&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+<p align="center">
+  <a href="https://papermc.io"><img src="https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/paper_vector.svg" alt="Available for Paper" height="52"></a>
+  <a href="https://spigotmc.org"><img src="https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/spigot_vector.svg" alt="Available for Spigot" height="52"></a>
+  <a href="https://purpurmc.org"><img src="https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/purpur_vector.svg" alt="Available for Purpur" height="52"></a>
+</p>
 
 BanHammer is the ultimate punishment and admin utility plugin for Paper 1.21.x and 1.21.11+ Minecraft servers. It turns the 1.21 Mace into an unstoppable weapon of justice with custom textures, celestial shockwaves, configurable sanction modes, and rich visual effects.
 

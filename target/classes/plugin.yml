@@ -1,7 +1,7 @@
 name: BanHammer
-version: '1.1.9'
+version: '1.2.0'
 main: fr.banhammer.BanHammerPlugin
-api-version: '1.20'
+api-version: '1.21'
 prefix: BanHammer
 authors: [TyniTV]
 description: A plugin that adds a specialized Mace to ban players on hit.
@@ -9,6 +9,17 @@ description: A plugin that adds a specialized Mace to ban players on hit.
 commands:
   banhammer:
     description: Main command for BanHammer
-    usage: /banhammer give <player>
+    usage: /banhammer <give|reload|pack|enchant> [player] [args]
     permission: banhammer.give
-    permission-message: "<red>Vous n'avez pas la permission d'utiliser cette commande.</red>"
+    permission-message: "<red>You do not have permission to use this command.</red>"
+
+permissions:
+  banhammer.use:
+    description: Allows using the BanHammer weapon
+    default: op
+  banhammer.give:
+    description: Allows giving the BanHammer
+    default: op
+  banhammer.admin:
+    description: Allows reload and admin commands
+    default: op

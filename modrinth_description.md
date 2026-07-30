@@ -3,7 +3,7 @@
 ![Paper](https://img.shields.io/badge/Loader-Paper-blue?logo=papermc&logoColor=white)
 ![Spigot](https://img.shields.io/badge/Loader-Spigot-orange?logo=spigotmc&logoColor=white)
 ![Minecraft](https://img.shields.io/badge/Minecraft-1.21.x-brightgreen?logo=minecraft&logoColor=white)
-![Modrinth](https://img.shields.io/badge/Modrinth-PulseSuite-00AF5C?logo=modrinth&logoColor=white)
+![Modrinth](https://img.shields.io/badge/Modrinth-BanHammer-00AF5C?logo=modrinth&logoColor=white)
 ![Discord](https://img.shields.io/badge/Discord-Join%20Us-5865F2?logo=discord&logoColor=white)
 
 Give your admins the ultimate banning power with a legendary mace!

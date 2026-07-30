@@ -29,14 +29,16 @@ public class ResourcePackListener implements Listener {
             try {
                 String configUrl = plugin.getConfig().getString("resource-pack.url", "");
                 String packUrl;
-                if (configUrl != null && !configUrl.trim().isEmpty() && !configUrl.contains("127.0.0.1") && !configUrl.contains("0.0.0.0")) {
+                if (configUrl != null && !configUrl.trim().isEmpty()) {
                     packUrl = configUrl.trim();
                 } else {
                     packUrl = "https://raw.githubusercontent.com/tynitv/BanHammer/main/BanHammer_ResourcePack.zip";
                 }
 
-                byte[] hash = packServer != null ? packServer.getSha1HashBytes() : null;
-                plugin.getLogger().info("[ResourcePack DEBUG] Sending pack to " + player.getName() + " | URL: " + packUrl + " | Hash: " + (packServer != null ? packServer.getSha1HashHex() : "null"));
+                boolean useLocalServer = plugin.getConfig().getBoolean("resource-pack.use-integrated-http-server", false);
+                byte[] hash = (useLocalServer && packServer != null) ? packServer.getSha1HashBytes() : null;
+
+                plugin.getLogger().info("[ResourcePack] Sending pack to " + player.getName() + " | URL: " + packUrl);
 
                 if (hash != null && hash.length == 20) {
                     player.setResourcePack(packUrl, hash);
@@ -44,14 +46,13 @@ public class ResourcePackListener implements Listener {
                     player.setResourcePack(packUrl);
                 }
             } catch (Exception e) {
-                plugin.getLogger().severe("[ResourcePack DEBUG ERROR] Exception while sending setResourcePack to " + player.getName() + ": " + e.getMessage());
-                e.printStackTrace();
+                plugin.getLogger().severe("[ResourcePack ERROR] Exception sending setResourcePack to " + player.getName() + ": " + e.getMessage());
             }
         }, 40L);
     }
 
     @EventHandler
     public void onPackStatus(PlayerResourcePackStatusEvent event) {
-        plugin.getLogger().info("[ResourcePack DEBUG STATUS] Player " + event.getPlayer().getName() + " Pack Status: " + event.getStatus());
+        plugin.getLogger().info("[ResourcePack STATUS] Player " + event.getPlayer().getName() + " status: " + event.getStatus());
     }
 }

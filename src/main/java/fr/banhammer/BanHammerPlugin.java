@@ -29,15 +29,18 @@ public final class BanHammerPlugin extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new BanHammerListener(this), this);
 
-        // Integrated Resource Pack Server
+        // Integrated Resource Pack Server (Optional)
         if (getConfig().getBoolean("resource-pack.enabled", true)) {
+            boolean useLocalServer = getConfig().getBoolean("resource-pack.use-integrated-http-server", false);
             int port = getConfig().getInt("resource-pack.port", 8765);
-            this.resourcePackServer = new ResourcePackServer(this, port);
-            this.resourcePackServer.start();
+            if (useLocalServer) {
+                this.resourcePackServer = new ResourcePackServer(this, port);
+                this.resourcePackServer.start();
+            }
             getServer().getPluginManager().registerEvents(new ResourcePackListener(this, resourcePackServer, port), this);
         }
 
-        getLogger().info("BanHammer Plugin v1.2.0 enabled with SHA-1 ResourcePack!");
+        getLogger().info("BanHammer Plugin v1.2.0 enabled!");
     }
 
     @Override
@@ -52,6 +55,9 @@ public final class BanHammerPlugin extends JavaPlugin {
         reloadConfig();
         if (resourcePackServer != null) {
             resourcePackServer.stop();
+            resourcePackServer = null;
+        }
+        if (getConfig().getBoolean("resource-pack.enabled", true) && getConfig().getBoolean("resource-pack.use-integrated-http-server", false)) {
             int port = getConfig().getInt("resource-pack.port", 8765);
             this.resourcePackServer = new ResourcePackServer(this, port);
             this.resourcePackServer.start();

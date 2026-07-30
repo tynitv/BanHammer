@@ -30,12 +30,13 @@ enchantments:
     BREACH: 4
 
 # Automatic Resource Pack Settings
+# Default HTTPS GitHub Raw URL works 100% on ALL server hosts (Pterodactyl, Aternos, VPS, etc.) without port forwarding!
 resource-pack:
   enabled: true
   auto-send-on-join: true
+  url: "https://raw.githubusercontent.com/tynitv/BanHammer/main/BanHammer_ResourcePack.zip"
+  use-integrated-http-server: false
   port: 8765
-  # Direct HTTP Server Link (served live on port 8765 for instant local delivery)
-  url: "http://127.0.0.1:8765/resourcepack.zip"
 
 # Hit Effects Settings
 effects:

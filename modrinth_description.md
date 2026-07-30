@@ -1,56 +1,54 @@
-# 🔨 BanHammer
+# BanHammer (Ban Hammer & Mace Ban Engine)
 
-**Give your admins the ultimate banning power — with a legendary hammer!**
+Give your admins the ultimate banning power with a legendary mace!
 
-BanHammer adds a **special enchanted Mace** to your Minecraft server. When an admin hits a player with this mythical weapon, that player is **instantly banned** — complete with explosive visual effects and a server-wide announcement!
-
----
-
-## ✨ Features
-
-- 🔨 **Unique item** — A custom unbreakable, glowing Mace named `BAN HAMMER`
-- ⚡ **Instant ban** — Hitting a player with the hammer bans them immediately
-- 💥 **Spectacular effects** — Lightning strike, visual explosion, and Wither death sound
-- 📢 **Global broadcast** — A message is sent to all players on the server
-- 🔒 **Permissions** — Access is protected to avoid abuse
-- ⚙️ **Fully configurable** — Customize messages and effects in `config.yml`
+BanHammer adds an enchanted, custom-textured Mace to your Minecraft server. When an admin hits a player or right-clicks for a celestial shockwave, it strikes with lightning, explosions, and instant punishment!
 
 ---
 
-## 📜 Commands & Permissions
+## Features
+
+- Custom Mace Texture & Resource Pack: Custom model texture (mace_banhammertexture.png) with automatic in-game delivery.
+- Shockwave Ability (Right-Click): Release a massive lightning shockwave pushing back nearby entities with explosion particles and thunder.
+- Multiple Sanction Modes: Configure action on hit: BAN, TEMP_BAN, KICK, MUTE, or LIGHTNING_ONLY.
+- Spectacular Visuals & Debuffs: Lightning strikes, visual explosions, Wither death audio, and configurable potion debuffs (Blindness, Slowness).
+- Adventure MiniMessage Broadcasts: Fully customizable rich-text color formatting and broadcast messages.
+- Live Reload & Commands: /banhammer reload to update configs and /banhammer pack to re-send the Resource Pack.
+
+---
+
+## Commands & Permissions
 
 | Command | Description | Permission |
 |---|---|---|
 | `/banhammer give <player>` | Gives the Ban Hammer to the specified player | `banhammer.give` |
+| `/banhammer pack [player]` | Sends the custom Resource Pack to a player | `banhammer.use` |
+| `/banhammer reload` | Reloads plugin config and Resource Pack server | `banhammer.admin` |
 
 ---
 
-## ⚙️ Configuration (`config.yml`)
+## Configuration (config.yml)
 
 ```yaml
-ban-message: "You have been banned by the Ban Hammer!"
-broadcast-message: "&c{player} was annihilated by the Ban Hammer!"
-lightning-effect: true
-explosion-effect: true
-sound-effect: true
+action-mode: "BAN"
+temp-ban-duration-hours: 24
+
+shockwave:
+  enabled: true
+  cooldown-seconds: 10
+  radius: 6.0
+  knockback-force: 1.8
+
+resource-pack:
+  enabled: true
+  auto-send-on-join: true
+  url: "https://raw.githubusercontent.com/tynitv/BanHammer/main/BanHammer_ResourcePack.zip"
 ```
 
 ---
 
-## 📦 Installation
+## Installation & Compatibility
 
-1. Download the `.jar` file
-2. Place it in your server's `plugins/` folder
-3. Restart your server
-4. Use `/banhammer give <player>` to get the hammer!
-
----
-
-## 🔧 Compatibility
-
-- **Paper / Spigot** 1.21.x
-- Java 21+
-
----
-
-*Perfect for SMP servers, events, or keeping order in the most spectacular way possible!* ⚒️
+1. Place BanHammer-1.2.0.jar into your server's plugins/ folder
+2. Restart your server
+3. Compatible with Paper / Spigot 1.21.x & 1.21.11+ (Java 21+)

@@ -21,21 +21,23 @@ public final class BanHammerPlugin extends JavaPlugin {
 
         this.itemManager = new ItemManager(this);
 
+        BanHammerCommand cmd = new BanHammerCommand(this);
         if (getCommand("banhammer") != null) {
-            getCommand("banhammer").setExecutor(new BanHammerCommand(this));
+            getCommand("banhammer").setExecutor(cmd);
+            getCommand("banhammer").setTabCompleter(cmd);
         }
 
         getServer().getPluginManager().registerEvents(new BanHammerListener(this), this);
 
         // Integrated Resource Pack Server
         if (getConfig().getBoolean("resource-pack.enabled", true)) {
-            int port = getConfig().getInt("resource-pack.port", 8085);
+            int port = getConfig().getInt("resource-pack.port", 8765);
             this.resourcePackServer = new ResourcePackServer(this, port);
             this.resourcePackServer.start();
             getServer().getPluginManager().registerEvents(new ResourcePackListener(this, resourcePackServer, port), this);
         }
 
-        getLogger().info("BanHammer Plugin v1.1.1 enabled with SHA-1 ResourcePack!");
+        getLogger().info("BanHammer Plugin v1.2.0 enabled with SHA-1 ResourcePack!");
     }
 
     @Override
@@ -43,7 +45,17 @@ public final class BanHammerPlugin extends JavaPlugin {
         if (resourcePackServer != null) {
             resourcePackServer.stop();
         }
-        getLogger().info("BanHammer Plugin disabled!");
+        getLogger().info("BanHammer Plugin v1.2.0 disabled!");
+    }
+
+    public void reloadPluginConfig() {
+        reloadConfig();
+        if (resourcePackServer != null) {
+            resourcePackServer.stop();
+            int port = getConfig().getInt("resource-pack.port", 8765);
+            this.resourcePackServer = new ResourcePackServer(this, port);
+            this.resourcePackServer.start();
+        }
     }
 
     public static BanHammerPlugin getInstance() {

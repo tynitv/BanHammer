@@ -5,6 +5,17 @@
 # Custom Model Data for Resource Pack texture (mace_banhammertexture.png)
 custom-model-data: 1001
 
+# Action mode on hit: BAN, TEMP_BAN, KICK, MUTE, LIGHTNING_ONLY
+action-mode: "BAN"
+temp-ban-duration-hours: 24
+
+# Shockwave Ability (Right-Click)
+shockwave:
+  enabled: true
+  cooldown-seconds: 10
+  radius: 6.0
+  knockback-force: 1.8
+
 # Automatic Resource Pack Settings
 resource-pack:
   enabled: true
@@ -29,9 +40,12 @@ effects:
       duration-seconds: 10
       amplifier: 2
 
-# Messages Configuration
+# Messages Configuration (MiniMessage Format)
 messages:
   prefix: "<gradient:#FF0033:#FFD700><bold>BanHammer</bold></gradient> <gray>»</gray> "
   broadcast: "<prefix><red><player></red> <gray>a été frappé et ban par le BanHammer !</gray>"
   ban-reason: "<red>Vous avez été ban par le BanHammer.</red>"
   no-permission: "<prefix><red>Vous n'avez pas la permission d'utiliser cet objet légendaire.</red>"
+  reloaded: "<prefix><green>Configuration et Resource Pack réinitialisés avec succès !</green>"
+  pack-sent: "<prefix><green>Le Resource Pack du BanHammer vous a été envoyé.</green>"
+  cooldown: "<prefix><red>L'onde de choc est en rechargement (<seconds>s restantes).</red>"
